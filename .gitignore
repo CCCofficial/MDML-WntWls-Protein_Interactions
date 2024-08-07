@@ -35,6 +35,7 @@ env.bak/
 venv.bak/
 profile_default/
 ipython_config.py
+pyvenv.cfg
 
 # Testing / Typing
 .pytest_cache/
@@ -46,17 +47,59 @@ dmypy.json
 # Jupyter Notebooks
 .ipynb_checkpoints
 
-# Data
-data/*
-
 # Scripts
 scratch/*
 
-# files from MS internship
+# Data
+data/*
 scripts/00_sequence_align/
 scripts/00_unwrap_trajectory/
-scripts/01_get_contact_matrix/output/
-scripts/02_apply_threshhold/output/
-scripts/03_finalize_dataset/output/
-scripts/06_acf/output/
-scripts/07_preprocess/output/
+scripts/00_map/output/*
+!scripts/00_map/output/.gitignore
+scripts/00_map/input/*
+!scripts/00_map/input/.gitignore
+
+scripts/00_visualize_contacts/output/*
+!scripts/00_visualize_contacts/output/.gitignore
+scripts/00_visualize_contacts/plots/*
+!scripts/00_visualize_contacts/plots/.gitignore
+
+scripts/01_get_contact_matrix/output/*
+!scripts/01_get_contact_matrix/output/.gitignore
+
+scripts/02_apply_threshhold/output/*
+!scripts/02_apply_threshhold/output/.gitignore
+
+scripts/03_finalize_dataset/output/*
+!scripts/03_finalize_dataset/output/.gitignore
+
+scripts/04_map/output/*
+!scripts/04_map/output/.gitignore
+
+scripts/05_combine/output/*
+!scripts/05_combine/output/.gitignore
+
+scripts/06_acf/output/*
+!scripts/06_acf/output/.gitignore
+scripts/06_acf/plots/*
+!scripts/06_acf/plots/.gitignore
+
+scripts/07_preprocess/output/*
+!scripts/07_preprocess/output/.gitignore
+scripts/07_preprocess/model/*
+!scripts/07_preprocess/model/.gitignore
+scripts/07_preprocess/plots/*
+!scripts/07_preprocess/plots/.gitignore
+
+scripts/08_model_build/model/*
+!scripts/08_model_build/model/.gitignore
+scripts/08_model_build/plots/*
+!scripts/08_model_build/plots/.gitignore
+
+scripts/09_model_eval/output/*
+!scripts/09_model_eval/output/.gitignore
+scripts/09_model_eval/model/*
+!scripts/09_model_eval/model/.gitignore
+scripts/09_model_eval/plots/*
+!scripts/09_model_eval/plots/.gitignore
+scripts/09_model_eval/*gif

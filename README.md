@@ -3,11 +3,8 @@
 
 ## Objective
 ***
+<img src="https://media.github.ibm.com/user/430879/files/a882b7f7-73fc-4990-97ce-e9c98719b3e8" align="right" width=300>
 The Wnt protein family is essential for cell development, with each Wnt protein interacting uniquely with the WLS membrane protein through varying binding residues. This study employs molecular dynamics (MD) simulations and supervised machine learning (ML) to analyze the binding differences among four Wnt proteins. Using both crystal structures of Wnt3a and Wnt8a and homology models of Wnt1 and Wnt5a, the MD simulations were run for 1.5 microseconds producing 75,000 frames per protein. Features were extracted as Wnt-WLS residue pairs within a 12Å contact distance (n=985) and autocorrelation functions were used to define uncorrelated training (n=160,000) and testing (n=70,000) sets. Subclustering within regions of known significance reduced the feature set to 210 residue pairs. Using these data we trained a Random Forest multiclass classification model, optimized through hyperparameter tuning and 10-fold cross-validation, which achieved a test accuracy of 95.9%. Key residue pairs distinguishing each WNT system were then identified using permutation feature importance. This methodology not only highlights crucial contact pairs but also corroborates previously studied residues influencing enzyme activity, demonstrating the potential of ML in understanding complex protein interactions.
-
-<br>
-
-<br>
 
 This repository provides tools for interacting with and processing molecular structures and data from molecular dynamic simulations. It will also include code and workflows for building and training a variety of robust machine learning models.
 
@@ -16,14 +13,13 @@ This repository provides tools for interacting with and processing molecular str
 ***
 ## Code
 ***
-This section provides information on the code used to conduct the study described above. For access to data, please send an email to the authors (see the **Contact** section below).
+This section provides information on the code used to conduct the study described above. For access to data, please email the authors (see the **Contact** section below).
 
 ### Environment Set-Up  
-The code has been developed for `Python 3.12`. We recommend using a virtual Python envrionment, please see [this](https://docs.python.org/3/library/venv.html) documentation for details on how do this using built-in Python modules. Once the environment has been activated, please install the required Python modules by running the following from the terminal:
+The code has been developed for `Python 3.12`. We recommend using a virtual Python environment, please see [this](https://docs.python.org/3/library/venv.html) documentation for details on how do this using built-in Python modules. Once the environment has been activated, please install the required Python modules by running the following from the terminal:
 ```bash
 pip install -r requirements.txt
 ```
-<br> 
 
 ### Scripts
 The `scripts/` directory is organizes as follows:
@@ -32,7 +28,6 @@ The `scripts/` directory is organizes as follows:
 scripts/
   |-- main.ipynb
   |-- 00_map/
-  |-- 00_sequence_align/
   |-- 00_visualize_contacts/
   |-- 01_get_contact_matrix/
   |-- 02_apply_threshold/
@@ -68,7 +63,7 @@ Once the ```.out``` files are generated, run the Jupyter notebook ```mapping.ipy
 ```
 
 #### 00_visualize_contacts
-Three scripts required to generate the following figures:  
+The code in this directory is designed to generate different figures using VMD. Three scripts required to generate the following figures:  
 - **Feature Importance Bonds:** ```draw_feature_importance_bonds.tcl``` from -```../07_preprocess/output/feature_importances_region_*.txt```  
   - Figure: `plots/draw_final`  
 - **Initial Bonds**: ```draw_initial_bonds.tcl``` from ```output/WNT1_threshhold12_labels.txt``` (this is the same as ```03_finalize_dataset/output``` with `AA` removed)  
@@ -79,7 +74,7 @@ Three scripts required to generate the following figures:
 <br> 
 
 #### ML Pipeline
-The ```main.ipynb``` includes code to run all subdirectories `scripts/01_*` - `scripts/05_*` as well as includes instructions for how to run the code in subdirectories `scripts/06_*` - `scripts/09_*`. See the notebook for specific details on the code included within each subdirectory. The first five steps of the pipeline include:  
+The ```scripts/main.ipynb``` includes code to run all subdirectories `scripts/01_*` - `scripts/05_*` as well as includes instructions for how to run the code in subdirectories `scripts/06_*` - `scripts/09_*`. See the notebook for specific details on the code included within each subdirectory. The first five steps of the pipeline include:  
 1. Obtaining the residue pair contact distance matrix (`01_get_contact_matrix`)  
 2. Apply an Ansgtrom-based threshold to each Wnt such that only contact pairs within this threshold within at least 1 frame are included  (`02_apply_threshold`)   
 3. Finalize the contact matrices for each Wnt by adding the contact pair labels  (`03_finalize_dataset`)  
@@ -91,9 +86,7 @@ Each folder has a similar structure, for example:
 - ```plots```: Plots from ```output/```  
 - ```output```: Output of ```run.py```
 
-Additional information for `scripts/06_*` - `scripts/09_*` is provided below.  
-
-<br>
+Additional information for `scripts/06_*` - `scripts/09_*` is provided below.
 
 ##### 06_acf  
 This directory contains code that applies autocorrelation functions (ACF) to identify the optimal location (i.e., frame) within each Wnt's trajectory to use for deriving training and testing splits. There are two scripts:  
@@ -125,6 +118,7 @@ This directory contains code to build the Random Forest classifier, including tu
 	- ```gridsearch_final_stratified_2.pkl```: 3rd iteration of grid search
 
 ##### 09_model_eval 
+This directory contains code to generate a learning curve and performs permutation feature importance. 
 This directory contains code to generate a learning curve and performs permutation feature importance. 
 - ```compute_and_plot_learning_curve.py```: Get the learning curve with optimized parameters
 - ```compute_feature_importances.ipynb```: Compute permutation feature importance  
