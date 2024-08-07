@@ -47,7 +47,16 @@ dmypy.json
 .ipynb_checkpoints
 
 # Data
-data
+data/*
 
 # Scripts
-scratch
+scratch/*
+
+# files from MS internship
+scripts/00_sequence_align/
+scripts/00_unwrap_trajectory/
+scripts/01_get_contact_matrix/output/
+scripts/02_apply_threshhold/output/
+scripts/03_finalize_dataset/output/
+scripts/06_acf/output/
+scripts/07_preprocess/output/
