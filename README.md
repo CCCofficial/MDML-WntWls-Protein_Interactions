@@ -150,5 +150,5 @@ To get in touch with us, please [create an issue](https://github.ibm.com/IBM-Res
 This material is based upon work supported by the National Science Foundation (NSF) under Grant `No.DBI-1548297` awarded to the [Center for Cellular Construction](https://centerforcellularconstruction.org/about/) at IBM Research.  
 Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation or IBM Research.
 
-<img src="https://media.github.ibm.com/user/430879/files/fb31b0d4-849a-4d06-8743-a3571bae867f" align="left" width=195>
-<img src="https://media.github.ibm.com/user/430879/files/a1e5f43d-9497-494c-bb2a-32d9c65bc589" align="left" width=75>
+<center><img src="https://media.github.ibm.com/user/430879/files/fb31b0d4-849a-4d06-8743-a3571bae867f" align="center" width=200>
+<img src="https://media.github.ibm.com/user/430879/files/a1e5f43d-9497-494c-bb2a-32d9c65bc589" align="center" width=85></center>
