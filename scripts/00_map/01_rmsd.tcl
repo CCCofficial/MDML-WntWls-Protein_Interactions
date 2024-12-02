@@ -68,7 +68,7 @@ for { set i $wnt1astart } { $i <= $wnt1aend } {incr i} {
 puts $i   
 set molid1 [expr $curr]
 set molid2 [expr $curr + 1]
-rmsd $molid1 $molid2 "input/Wnt1a_align.pdb" $wnt1astart $wnt1aend $i 20 "output/1_to_8a.out"
+rmsd $molid1 $molid2 "input/Wnt1_align.pdb" $wnt1astart $wnt1aend $i 20 "output/1_to_8a.out"
 set curr [expr $curr + 2]
 }
 }
@@ -87,7 +87,7 @@ set curr [expr $curr + 2]
 
 proc rmsd_4 { } {
 set wnt4astart 24
-set wnt4aend 351
+set wnt4aend 352
 set curr 0
 for { set i $wnt4astart } { $i <= $wnt4aend } {incr i} {
 puts $i
@@ -119,7 +119,7 @@ for { set i $wnt8astart } { $i <= $wnt8aend } {incr i} {
 puts $i
 set molid1 [expr $curr]
 set molid2 [expr $curr + 1]
-rmsd $molid1 $molid2 "input/Wnt8a_align.pdb" $wnt8astart $wnt8aend $i 20 "crap.out"
+rmsd $molid1 $molid2 "input/Wnt8a_align.pdb" $wnt8astart $wnt8aend $i 20 "output/8a_to_8a.out"
 set curr [expr $curr + 2]
 }
 }
