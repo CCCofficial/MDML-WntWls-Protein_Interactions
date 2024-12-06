@@ -15,7 +15,7 @@ proc rmsd { molid1 molid2 fitstruct fitwntstart fitwntend seltext1 range outfile
   set currbegin [ expr $seltext1 - $range *2 ]
   set currend [ expr $seltext1 + $range *2]
 
-  if { $currend >= $fitwntend } {
+  if { $currend > $fitwntend } {
   set rangestart [expr $refwntstart + 2*$range]
   set rangeend [expr $refwntend]
   } else {
@@ -24,9 +24,9 @@ proc rmsd { molid1 molid2 fitstruct fitwntstart fitwntend seltext1 range outfile
   }
 
   puts "Searching for:${seltext1}\nCurrent Begin:${rangestart}\nCurrent End:${rangeend}"
-  for { set i $rangestart } { $i < $rangeend } { incr i } {
+  for { set i $rangestart } { $i <= $rangeend } { incr i } {
 
- if { $currend >= $fitwntend } {
+ if { $currend > $fitwntend } {
       set end1 [expr $i]
       set start1 [expr $i - 2*$range]
       set end2 [expr $seltext1]
