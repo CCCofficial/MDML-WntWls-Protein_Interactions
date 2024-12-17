@@ -52,8 +52,8 @@ scratch/*
 
 # Data
 data/*
-scripts/00_sequence_align/
-scripts/00_unwrap_trajectory/
+scripts/00_sequence_align/wnt.fasta
+scripts/00_unwrap_trajectory/output
 scripts/00_map/output/*
 !scripts/00_map/output/.gitignore
 scripts/00_map/input/*
