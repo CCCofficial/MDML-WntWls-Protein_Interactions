@@ -64,7 +64,6 @@ for i in range(len(protein_names)):
         print(f"Iteration {feature}")
         numpy_result = acovf(data[:, feature], adjusted=False, demean=True, fft=False, missing="none", nlag=74999)
         numpy_result_norm = numpy_result / numpy_result[0]
-
         my_result_2 = corr_final_matt(data[:, feature], window_arr)
         my_result_2_norm = my_result_2 / my_result_2[0]
         total_numpy[:, feature] = numpy_result_norm
