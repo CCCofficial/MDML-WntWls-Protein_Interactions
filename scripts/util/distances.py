@@ -1,5 +1,7 @@
 from MDAnalysis.analysis import distances
 import numpy as np
+
+
 def get_res_list(WNT_atoms, WNTLESS_atoms, idx):
     res_list = np.empty((len(WNT_atoms.resids), len(WNTLESS_atoms.resids)),
                         dtype=object)  # store the index names of the distance matrix
@@ -56,7 +58,7 @@ def check_input(traj, num_frames, num_proteins):
 
 
 def gather_matrix(u, WNT_atoms, WNTLESS_atoms, nFrames, nProteins, stride, pair_indeces=None, equilibration=False):
-    '''
+    """
     Function used to calculate the distance matrix between two AtomGroups
     u -> MDAnalysis Trajectory
     WNT_atoms -> AtomGroup 1
@@ -64,7 +66,7 @@ def gather_matrix(u, WNT_atoms, WNTLESS_atoms, nFrames, nProteins, stride, pair_
     nFrames -> The number of frames that we want to read from EACH trajectory
     nProteins -> The number of trajectories that we want ot read from
     stride -> How often (in frames) we want to calculate the distance matrix
-    '''
+    """
 
     # Edge case, if the number of frames is longer than the length of the trajectory, throw exception and redo
     check_input(u, nFrames, nProteins)
@@ -80,7 +82,7 @@ def gather_matrix(u, WNT_atoms, WNTLESS_atoms, nFrames, nProteins, stride, pair_
         start, end = get_frames(nFrames, nProteins, 0, equilibration)
 
         # We subset the trajectory based on tFinal
-        for dt in u[iteration].trajectory[start:end:stride]:
+        for _ in u[iteration].trajectory[start:end:stride]:
             i = i + 1  # update the counter
             frames[i] = get_distance_matrix(u[iteration], WNT_atoms[iteration], WNTLESS_atoms[iteration], pair_indeces)
 
@@ -88,11 +90,11 @@ def gather_matrix(u, WNT_atoms, WNTLESS_atoms, nFrames, nProteins, stride, pair_
 
 
 def identify_contacts(frames, res_list, distance_threshhold):
-    '''
+    """
     Function used to figure out what contact distances are within the threshhold
 
     nFrames
-    '''
+    """
     contacts_within_threshhold = ""  # string storing contact pairs we are keeping
     index_within_threshhold = ""  # string storing the indeces that we are keeping
 

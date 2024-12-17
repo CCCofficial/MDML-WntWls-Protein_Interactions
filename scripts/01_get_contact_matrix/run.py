@@ -58,7 +58,7 @@ for filenum in range(len(dcd_arr)):
 
     nFrames = len(u[0].trajectory)
 
-    # Step 1 - get the distance matrix with a high stride (10)
+    # Step 1 - get the distance matrix with a high stride (10) -- but 1 is actually used
     stack, res_list = gather_matrix(u, WNT_atoms, WNTLESS_atoms, nFrames, nProteins, 1, pair_indeces=None, equilibration=False)
 
     print(f"From {stack.shape[0]} frames ({store_freq * stack.shape[0] / 1000} ns) we have {stack.shape[1]} input features!")
