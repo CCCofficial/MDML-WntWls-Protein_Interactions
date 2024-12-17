@@ -38,14 +38,12 @@ currFrame = 0
 for i in range(len(dcd_names)):
     curr = np.load(f"{workingDir}/01_get_contact_matrix/output/{dcd_names[i]}")
 
-
     if currFrame < nFrames/2 and currFrame + int(curr.shape[0]) >= nFrames / 2:
         print(f"Number of frames currently read in: {currFrame} ({currFrame*20/1000} ns) -> Start at frame {currFrame + int((nFrames/2) - currFrame)} ({(currFrame + int((nFrames/2) - currFrame))*20/1000} ns)")
         pair_indeces, pair_names = identify_contacts(curr[int((nFrames/2) - currFrame):], idx, distance_threshhold);
         for j in pair_indeces:
             if j not in index_keeper:
                 index_keeper.append(j)
-
 
     if currFrame >= nFrames/2 and currFrame < nFrames and currFrame + int(curr.shape[0]) < nFrames:
         print(f"Number of frames read in: {currFrame} ({currFrame*20/1000} ns)")
