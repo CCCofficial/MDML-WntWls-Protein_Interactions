@@ -4,8 +4,8 @@
 ## 🎯 Objective
 ***
 <img src="https://media.github.ibm.com/user/430879/files/a882b7f7-73fc-4990-97ce-e9c98719b3e8" align="right" width=300>
-The Wnt protein family is essential for cell development, with each Wnt protein interacting uniquely with the WLS membrane protein through varying binding residues. This study employs molecular dynamics (MD) simulations and supervised machine learning (ML) to analyze the binding differences among four Wnt proteins. Using both crystal structures of Wnt3a and Wnt8a and homology models of Wnt1 and Wnt5a, the MD simulations were run for 1.5 microseconds producing 75,000 frames per protein. Features were extracted as Wnt-WLS residue pairs within a 12Å contact distance (n=985) and autocorrelation functions were used to define uncorrelated training (n=160,000) and testing (n=70,000) sets. Subclustering within regions of known significance reduced the feature set to 210 residue pairs. Using these data, we trained a Random Forest multiclass classification model, optimized through hyperparameter tuning and 10-fold cross-validation, which achieved a test accuracy of 95.9%. Key residue pairs distinguishing each WNT system were then identified using permutation feature importance. This methodology not only highlights crucial contact pairs but also corroborates previously studied residues influencing enzyme activity, demonstrating the potential of ML in understanding complex protein interactions.
-
+The Wnt protein family is essential for cell development, with each Wnt protein interacting uniquely with the WLS membrane protein through varying binding residues. This study employs molecular dynamics (MD) simulations and supervised machine learning (ML) to analyze the binding differences among four Wnt proteins. Using both crystal structures of Wnt3a and Wnt8a and homology models of Wnt1 and Wnt5a, the MD simulations were run for 1.5 microseconds producing 75,000 frames per protein. Features were extracted as Wnt-WLS residue pairs (n=985) and autocorrelation functions were used to define uncorrelated training (n=160,000) and testing (n=70,000) sets. Subclustering within regions of known significance reduced the feature set to 210 residue pairs. Using these data, we trained a Random Forest multiclass classification model, optimized through hyperparameter tuning and 10-fold cross-validation, which achieved a test accuracy of 95.9%. Key residue pairs distinguishing each WNT system were then identified using permutation feature importance. This methodology not only highlights crucial contact pairs but also corroborates previously studied residues influencing enzyme activity, demonstrating the potential of ML in understanding complex protein interactions.
+<br><br>
 This repository provides tools for interacting with and processing molecular structures and data from molecular dynamic simulations. It will also include code and workflows for building and training a variety of robust machine learning models.
 
 <br><br><br>
@@ -35,6 +35,8 @@ The `scripts/` directory is organized as follows:
 
 ```md
 scripts/
+  |-- 00_sequence_align/	(not required for machine learning pipeline)
+  |-- 00_unwrap_trajectory/	(not required for machine learning pipeline)
   |-- main.ipynb
   |-- 00_map/
   |-- 00_visualize_contacts/
@@ -60,7 +62,23 @@ The code within the directories can be broken into two parts:
 
 <br>
 
-##### 📁 00_map
+#### 📁 00_sequence_align
+Run the Jupyter Notebook `scripts/00_sequence_align/fasta.ipynb`, which uses the `.pdb` files in `scripts/00_map/input`
+to generate a `wnt.fasta` file of the aligned sequences for each Wnt.
+Not required to run the Machine Learning Pipeline.
+
+#### 📁 00_unwrap_trajectory
+Run the Jupyter Notebook `scripts/00_unwrap_trajectory/unwrap.ipynb`,
+which uses the raw `.dcd` files (along with other files written to `scripts/00_unwrap_trajectory/output` --
+see next sentence) to unwrap and concat the trajectories for visualization.
+Note that prior to running this Notebook,
+the `scripts/00_unwrap_trajectory/read_raw_dcd.tcl` and `scripts/00_unwrap_trajectory/reload.tcl` files must be run
+as they generate the required input files (written to `scripts/00_unwrap_trajectory/output`).
+Not required to run the Machine Learning Pipeline.
+
+<br><br>
+
+#### 📁 00_map
 The code in this directory generates residue index mappings from Wnt1, wnt3a, and Wnt5a to Wnt8 (reference Wnt). Only those residues on *Wnt* need alignment.
 
 **STEP 1**.
@@ -71,9 +89,13 @@ Results are written as ```.out```  to the ```scripts/00_map/output``` directory.
 **STEP 2**.
 Once the ```.out``` files are generated,
 run the Jupyter notebook ```scripts/00_map/02_generate_mappings.ipynb```,
-which takes in the ```.out``` files and computes the best RMSD fits between WNT1/3a/5a and WnT8a.
-To ensure a good "fit" an RMSD cutoff of 4.5Å is applied,
-such that if a rmsd value is greater than the cutoff the Wnt8a mapping idx is set to -1 (indicating no fit).  
+which takes in the ```.out``` files and computes the best RMSD fits between WNT1/3a/5a and WnT8a using the following steps:
+- To identify structural correspondences between WNT proteins (WNT1, WNT3a, WNT5a, and WNT8a), 41-amino-acid segments (`[i-20, i+20]`) were analyzed around each residue `i`. This range captures entire secondary structures (e.g., alpha-helices and beta-sheets) while minimizing overlaps. Corresponding segments in WNT8a were identified based on the lowest root-mean-square deviation (RMSD).
+- A two-step RMSD calculation was used:
+  1. Global alignment including the conserved WLS protein.
+  2. Local alignment of the 41-amino-acid segments.
+
+A cutoff RMSD of 10 Å was applied to exclude poorly fitting matches, ensuring high-quality residue correspondences. For rmsd values greater than the cutoff, the Wnt8a mapping idx is set to -1 (indicating no fit).  
 
 Results are written to ```*8a.csv``` files in the ```scripts/00_map/output``` directory. Each ```.csv```  file has the following format:
 - Column 1: Wnt index to be aligned
@@ -117,23 +139,6 @@ Results are written to ```*8a.csv``` files in the ```scripts/00_map/output``` di
     }
 }
 ```
-
-<br>
-
-#### 📁 00_sequence_align
-Run the Jupyter Notebook `scripts/00_sequence_align/fasta.ipynb`, which uses the `.pdb` files in `scripts/00_map/input`
-to generate a `wnt.fasta` file of the aligned sequences for each Wnt.
-Not required to run the Machine Learning Pipeline.
-
-<br>
-
-#### 📁 00_unwrap_trajectory
-Run the Jupyter Notebook `scripts/00_unwrap_trajectory/unwrap.ipynb`,
-which uses the raw `.dcd` files (along with other files written to `scripts/00_unwrap_trajectory/output` --
-see next sentence) to unwrap and concat the trajectories for visualization.
-Note that prior to running this Notebook,
-the `scripts/00_unwrap_trajectory/read_raw_dcd.tcl` and `scripts/00_unwrap_trajectory/reload.tcl` files must be run
-as they generate the required input files (written to `scripts/00_unwrap_trajectory/output`).
 
 <br>
 
@@ -270,15 +275,12 @@ The `scripts/07_preprocess/` directory, contains the following:
     1. Performs initial clustering using only the Wnt8a contact pairs indices within the `12Å` cut-off (`04_map/output/WNT8a_threshhold12_labels.txt`) 
        - Identify 22 clusters using only the Wnt8a contact pairs index (without contact distance data), determined using the highest Silouette Score (`ss=0.76`)
        - Then the contact pair cluster indexes are assigned to the 22 clusters
-    2. Performs the subclustering on the distance matrix (1-spearman correlation matrix) containing only training data.
-       - Hierarchical clustering is run on the contact-pairs within each of the 22 clusters
-       - Which results in 210 clusters (average `ss=0.316`)
-  - **Step 4:** Pull features for each subcluster and get the new train/test sets
-    - For each of the 22 clusters, do the following:
-      - If: the cluster contains 4 or more contact pairs, then perform subclustering and randomly select 1 contact pair from each subcluster
-      - Elif: the cluster contains 1-4 contact pairs, randomly select a contact pair
-      - Else: the cluster contains 1 contact pair select it
-    - Results in 210 features
+    2. Performs hierarchical subclustering (using [scikit-learn `AgglomerativeClustering(metric='euclidean', linkage='ward')`](https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.AgglomerativeClustering.html)) on the distance matrix (1-spearman correlation matrix) containing only training data.
+       - For each of the 22 clusters, do the following (note that only 18 clusters contain contact pairs in all Wnts):
+         - If: the cluster contains 4 or more contact pairs, then perform subclustering and randomly select 1 contact pair from each subcluster
+         - Elif: the cluster contains 2-3 contact pairs, randomly select a contact pair from it
+         - Else: the cluster contains 1 contact pair select it
+       - Results in 210 features (ss `average=0.316`, `range=0.22-0.42`)
 - `model/`: Contains the train + test sets
 - `output/`: 
 	- `clusterbyindex_df.pkl`: Data structure containing each of the sub-clusters from the 22 initial clusters & the elements within
@@ -295,13 +297,13 @@ The `scripts/07_preprocess/` directory, contains the following:
 <br>
 
 ##### 📁 08_model_build 
-This directory contains code to build the Random Forest classifier,
-including tuning hyperparameter via three iterations of grid search with 10-fold cross-validation. It also contains code to determine the final model performance.
+This directory contains code to build the one-versus-one Random Forest classifier (i.e., pairwise comparisons between all class pairs),
+including tuning hyperparameter via 3 iterations of grid search with 10-fold cross-validation. It also contains code to determine the final model performance.
 
 The following hyperparameter values were examined:
-- `rf__n_estimators` : [10, 25, 50, 75, 100, 200, 1000]
-- `rf__max_depth` : [1, 2, 3, 4, 5, 10, None]
-- `rf__min_samples_leaf`: [1, `int(X_train.shape[0] * 0.1/number_of_splitsk_fold)`, `int(X_train.shape[0] * 0.25/number_of_splits)`]; where `number_of_splits` is the number of k-folds.
+- Number of trees in forest (`n_estimators`): [10, 25, 50, 75, 100, 200, 1000]
+- Maximum depth of the tree (`max_depth`): [1, 2, 3, 4, 5, 10, None]
+- Minimum number of samples required to be at a leaf node (`min_samples_leaf`): [1, 1608, 4201]
 
 The `scripts/08_model_build/` directory, contains the following:
 `model_train.py`: `3` iterations of grid search with `10`-Fold cross-validation
@@ -313,12 +315,12 @@ The `scripts/08_model_build/` directory, contains the following:
 <br>
 
 ##### 📁 09_model_eval 
-This `scripts/09_model_eval/` directory contains code to generate a learning curve and performs permutation feature importance. 
+This `scripts/09_model_eval/` directory contains code to generate a learning curve and performs permutation feature importance. Permutation feature importance is computed 100 times over the final tuned model using the test set.
 
 This directory contains code to generate a learning curve and performs permutation feature importance. 
 - `compute_and_plot_learning_curve.py`: Get the learning curve with optimized parameters
 - `compute_feature_importances.ipynb`: Compute permutation feature importance using [scikit-learn `permutation_importance`](https://scikit-learn.org/1.5/modules/generated/sklearn.inspection.permutation_importance.html)  
-- `model/final_model.pkl`: Final model from learning curve (`max_depth`=3; `n_estimattors`=10)
+- `model/final_model.pkl`: Final model from learning curve (`max_depth`=3; `n_estimators`=10, `min_samples_leaf`=4021)
 - `output/`: 
   - Learning Curve Output: `train_scores_finalmodel.txt` and `test_scores_finalmodel.txt` 
   - Permutation Feature Importance Output: `feature_importances.txt`
