@@ -25,6 +25,7 @@ MANIFEST
 .DS_Store
 
 # Environments
+*.cfg
 .idea/
 .env
 .venv
@@ -48,6 +49,26 @@ dmypy.json
 
 # Data
 data
+scripts/00_sequence_align/wnt.fasta
+scripts/00_map/input/*
+scripts/00_map/output/*
+scripts/00_visualize_contacts/output/*
+scripts/00_visualize_contacts/plots/*
+scripts/01_get_contact_matrix/output/*
+scripts/02_apply_threshhold/output/*
+scripts/03_finalize_dataset/output/*
+scripts/04_map/output/*
+scripts/05_combine/output/*
+scripts/06_acf/output/*
+scripts/06_acf/plots/*
+scripts/07_preprocess/*
+scripts/07_preprocess/output/*
+scripts/07_preprocess/plots/*
+scripts/08_model_build/model/*
+scripts/08_model_build/plots/*
+scripts/09_model_eval/model/*
+scripts/09_model_eval/output/*
+scripts/09_model_eval/plots/*
 
 # Scripts
 scratch
