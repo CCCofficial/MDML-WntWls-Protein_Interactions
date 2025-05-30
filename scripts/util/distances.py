@@ -73,12 +73,15 @@ def gather_matrix(u, WNT_atoms, WNTLESS_atoms, nFrames, nProteins, stride, pair_
 
 
     # How we want to store the data
+    ## res_list: 1-D array of ['ALA23_LYS45', 'ALA23_ARG46'...]
     res_list = get_res_list(WNT_atoms[0], WNTLESS_atoms[0], pair_indeces)
+    ## shape of frames: (total_frames × num_proteins / stride, num_WNT_residues × num_WNTLESS_residues)
     frames = init_distance_matrix(WNT_atoms[0], WNTLESS_atoms[0], nFrames, nProteins, stride, pair_indeces,
                                   equilibration)
 
     i = -1  # keep a counter
     for iteration in range(nProteins):
+        ## start =0; end = nFrames
         start, end = get_frames(nFrames, nProteins, 0, equilibration)
 
         # We subset the trajectory based on tFinal
@@ -95,9 +98,10 @@ def identify_contacts(frames, res_list, distance_threshhold):
 
     nFrames
     """
-    contacts_within_threshhold = ""  # string storing contact pairs we are keeping
-    index_within_threshhold = ""  # string storing the indeces that we are keeping
-
+#    contacts_within_threshhold = ""  # string storing contact pairs we are keeping
+#    index_within_threshhold = ""  # string storing the indeces that we are keeping
+    contacts_within_threshhold = []  # list storing contact pairs we are keeping
+    index_within_threshhold = []  # list storing the indeces that we are keeping
     for contact_pair in range(frames.shape[1]):
         # For a given pair of atoms, if there is at least one frame where the contact distance is less
         # than the short range LJ cutoff (12 Angstroms), consider this in the input set
@@ -105,8 +109,14 @@ def identify_contacts(frames, res_list, distance_threshhold):
         # Equilibration Time: Last 750 ns of simulation.
 
         if np.min(frames[:, contact_pair]) < distance_threshhold:
-            contacts_within_threshhold += res_list[contact_pair] + "\n"
-            index_within_threshhold += str(contact_pair) + "\n"
-    pair_indeces = np.array(index_within_threshhold.split("\n")[:-1], dtype=int)
-    pair_names = np.array([pair for pair in contacts_within_threshhold.split("\n")[:-1]])
+#            contacts_within_threshhold += res_list[contact_pair] + "\n"
+#            index_within_threshhold += str(contact_pair) + "\n"
+            contacts_within_threshhold.append(res_list[contact_pair])
+            index_within_threshhold.append(contact_pair)
+            
+#    pair_indeces = np.array(index_within_threshhold.split("\n")[:-1], dtype=int)
+#    pair_names = np.array([pair for pair in contacts_within_threshhold.split("\n")[:-1]])
+    pair_indeces = np.array(index_within_threshhold, dtype=int)
+    pair_names = np.array(contacts_within_threshhold)
+    
     return pair_indeces, pair_names

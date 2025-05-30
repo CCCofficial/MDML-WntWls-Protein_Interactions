@@ -1,5 +1,5 @@
 import sys
-from scripts.util.distances import *
+from util.distances import *
 import MDAnalysis as mda
 import numpy as np
 import os
@@ -10,16 +10,18 @@ parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, 
 Generate distance contact matrices for the wnt system specified. Matrices are output in chunks, same format as 
 input trajectories
 ---------------------------------------------------------------------------------------------------------------------
-Example Command: python3 run.py -sys 5a -dir . -dt 20
+Example Command: python3 run.py -sys 5a -dir . -dt 20 -datadir "/gpfs/u/home/MLMS/MLMScllh/scratch/projects/WntWls_PPI/data"
 ---------------------------------------------------------------------------------------------------------------------''')
 parser.add_argument('-sys', dest = 'SYSTEM', help='Wnt system directory (from box)', type=str, required=True)
 parser.add_argument('-dir', dest = 'workingDir', help='Working directory - used to store results', type=str, required=True)
+parser.add_argument('-datadir', dest = 'dataDir', help='Data directory - where trajs are stored ', type=str, required=True)
 parser.add_argument('-dt', dest = 'timestep', help='saving frequency (in ps)', type=int, required=True)
 args = parser.parse_args()
 
 proteinnames = [args.SYSTEM]
 store_freq = args.timestep
 workingDir = args.workingDir
+dataDir = args.dataDir
 
 iter = ["1"]
 n = [0]
@@ -30,7 +32,7 @@ psf_arr = []
 # Get the input paths
 
 for option in range(len(proteinnames)):
-    data_dir = f"/Users/masauer2/Library/CloudStorage/Box-Box/Summerinternship_2024/WNT-WLS-project/Data_Backup/wnt{proteinnames[option]}/copy0{iter[option]}"
+    data_dir = f"{dataDir}/wnt{proteinnames[option]}/copy0{iter[option]}"
     psf_arr.append(f"{data_dir}/Wnt{proteinnames[option]}WlsPc_copy_0{iter[option]}.psf")
     dcd_dir = f"{data_dir}/dcd_files"
     dcd_names = sorted(os.listdir(dcd_dir))
@@ -39,6 +41,11 @@ for option in range(len(proteinnames)):
 
 dcd_arr = [x for xs in dcd_arr for x in xs]
 print(dcd_arr)
+
+# make sure the output dir exist
+output_dir = f"{workingDir}/01_get_contact_matrix/output"
+os.makedirs(output_dir, exist_ok=True)
+
 
 for filenum in range(len(dcd_arr)):
     print(f"Reading trajectory at iteration {filenum}.")
@@ -66,8 +73,8 @@ for filenum in range(len(dcd_arr)):
 
     # Output the distance matrix
     # Reshape such that the array shape is (number_of_frames x number_of_contact_pairs)
-    np.save(f"{workingDir}/01_get_contact_matrix/output/WNT{proteinnames[0]}_distances_iter{filenum}.npy", stack)
+    np.save(f"{output_dir}/WNT{proteinnames[0]}_distances_iter{filenum}.npy", stack)
 
 # Output the residue list
 # Reshape such that the array shape is (number_of_frames x number_of_contact_pairs)
-np.savetxt(f"{workingDir}/01_get_contact_matrix/output/WNT{proteinnames[0]}_resids.txt", res_list, fmt="%s")
+np.savetxt(f"{output_dir}/WNT{proteinnames[0]}_resids.txt", res_list, fmt="%s")

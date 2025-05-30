@@ -1,8 +1,8 @@
 import numpy as np
-from scripts.util.map import *
+from util.map import *
 import pandas as  pd
 import argparse
-
+import os
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description='''
 -------------------------------------------------------------------------------------------------
@@ -63,4 +63,9 @@ wnt1_contact_matrix_parsed = pd.DataFrame(wnt1_contact_matrix[:,keep_these_wnt1]
 # 4. 75000 frames from Wnt8a
 
 final = pd.concat([wnt1_contact_matrix_parsed,wnt3a_contact_matrix_parsed,wnt5a_contact_matrix_parsed,wnt8a_contact_matrix_parsed])
-final.to_csv(f"{workingDir}/05_combine/output/ML_input.csv", index=False)
+print(f"final input shape: {final.shape[0]} by {final.shape[1]}")
+
+output_dir = f"{workingDir}/05_combine/output"
+os.makedirs(output_dir,exist_ok=True)
+
+final.to_csv(f"{output_dir}/ML_input.csv", index=False)

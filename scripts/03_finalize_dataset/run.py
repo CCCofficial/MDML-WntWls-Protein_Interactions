@@ -1,5 +1,5 @@
 import sys
-from scripts.util.distances import *
+from util.distances import *
 import os
 import argparse
 import re
@@ -24,17 +24,17 @@ timestep = args.timestep
 tFinal =args.tFinal
 nFrames = int(tFinal/timestep)
 
-dcd_names = [i for i in sorted(os.listdir(f"{workingDir}/01_get_contact_matrix/output")) if f"WNT{SYSTEM}" in str(i) and ".npy" in str(i)]
-idx_arr = np.array([re.findall(rf'\d+', i) for i in dcd_names])
-dcd_names = list(np.array(dcd_names)[np.argsort(idx_arr[:,1].astype(int))])
-print(dcd_names)
+npy_names = [i for i in sorted(os.listdir(f"{workingDir}/01_get_contact_matrix/output")) if f"WNT{SYSTEM}" in str(i) and ".npy" in str(i)]
+idx_arr = np.array([re.findall(rf'\d+', i) for i in npy_names])
+npy_names = list(np.array(npy_names)[np.argsort(idx_arr[:,1].astype(int))])
+print(npy_names)
 
 idx = np.loadtxt(f"{workingDir}/02_apply_threshhold/output/WNT{SYSTEM}_idx_thresh{distance_threshhold}.txt", dtype=int)
 currFrame = 0
 final = np.zeros((nFrames,len(idx)))
 
-for i in range(len(dcd_names)):
-    curr = np.load(f"{workingDir}/01_get_contact_matrix/output/{dcd_names[i]}", mmap_mode='r')[:, idx].copy()
+for i in range(len(npy_names)):
+    curr = np.load(f"{workingDir}/01_get_contact_matrix/output/{npy_names[i]}", mmap_mode='r')[:, idx].copy()
     print(np.shape(curr), currFrame, nFrames)
 
     if currFrame < nFrames and currFrame + int(curr.shape[0]) >= nFrames:
@@ -50,6 +50,10 @@ for i in range(len(dcd_names)):
 
 resnames = np.loadtxt(f"{workingDir}/01_get_contact_matrix/output/WNT{SYSTEM}_resids.txt", dtype=str)[idx]
 
-np.save(f"{workingDir}/03_finalize_dataset/output/WNT{SYSTEM}_threshhold{distance_threshhold}_matrix.npy", final)
-np.savetxt(f"{workingDir}/03_finalize_dataset/output/WNT{SYSTEM}_threshhold{distance_threshhold}_labels.txt", resnames, fmt='%s')
+# Ensure output dir exists
+output_dir = f"{workingDir}/03_finalize_dataset/output"
+os.makedirs(output_dir,exist_ok=True)
+
+np.save(f"{output_dir}/WNT{SYSTEM}_threshhold{distance_threshhold}_matrix.npy", final)
+np.savetxt(f"{output_dir}/WNT{SYSTEM}_threshhold{distance_threshhold}_labels.txt", resnames, fmt='%s')
 
