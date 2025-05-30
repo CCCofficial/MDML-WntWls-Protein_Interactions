@@ -326,6 +326,18 @@ This directory contains code to generate a learning curve and performs permutati
   - Permutation Feature Importance Output: `feature_importances.txt`
 - `plots/`: learning curve and feature importance plots
 
+<br>
+
+##### 📁 10_ovr 
+This directory contains the implementation for building a one-versus-rest (OvR) Random Forest classifier, enabling the training of separate binary classifiers for each Wnt signaling system. The objective is to derive system-specific feature importance estimates that highlight the most predictive contact pairs for each Wnt system.
+The modeling framework adheres to the parameter settings established in the earlier stage (08_model_build), ensuring consistency across the pipeline.
+
+
+The `scripts/10_ovr/` directory, contains the following:
+`ovr_and_compute_feature_importances.ipynb`: This Jupyter notebook trains an OvR Random Forest classifier, where each individual classifier corresponds to a specific Wnt system. It subsequently computes feature importance scores for each classifier, facilitating the exploration of system-specific predictive contact pairs.
+
+
+
 <br><br>
 
 ***
