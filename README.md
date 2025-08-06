@@ -332,7 +332,7 @@ This directory contains code to generate a learning curve and performs permutati
 ## 📨 Contact 
 ***  
 This project is a collaboration between researchers at IBM Research, Arizona State University, and University of Illinois Urbana-Champaign. We'd love to hear from you!
-To get in touch with us, please [create an issue](https://github.ibm.com/IBM-Research-AI/MDML-WntWLS/issues) or <a href="mailto:sara.capponi@ibm.com, sara.capponi@ibm.com">send us an email</a>.
+To get in touch with us, please [create an issue](https://github.com/CCCofficial/MDML-WntWls-Protein_Interactions/issues) or <a href="mailto:sara.capponi@ibm.com, sara.capponi@ibm.com">send us an email</a>.
 
 [//]: # (| <img src="https://media.github.ibm.com/user/430879/files/9e327004-2b50-4a84-b638-ac5c584fb33d" width=150> | <img src="https://media.github.ibm.com/user/430879/files/b05f557f-e590-47be-b52f-12eae38a8d23" width=150> | <img src="https://media.github.ibm.com/user/430879/files/5f1e5a7d-107d-4d05-b104-1013dcf18bc5" width=150> |)
 
