@@ -3,7 +3,7 @@
 
 ## 🎯 Objective
 ***
-<img src="https://media.github.ibm.com/user/430879/files/a882b7f7-73fc-4990-97ce-e9c98719b3e8" align="right" width=300>
+<img src="https://github.com/user-attachments/assets/8755d597-1151-4194-9d7b-32f23ccbd458" align="right" width=300>
 The Wnt protein family is essential for cell development, with each Wnt protein interacting uniquely with the WLS membrane protein through varying binding residues. This study employs molecular dynamics (MD) simulations and supervised machine learning (ML) to analyze the binding differences among four Wnt proteins. Using both crystal structures of Wnt3a and Wnt8a and homology models of Wnt1 and Wnt5a, the MD simulations were run for 1.5 microseconds producing 75,000 frames per protein. Features were extracted as Wnt-WLS residue pairs (n=985) and autocorrelation functions were used to define uncorrelated training (n=160,000) and testing (n=70,000) sets. Subclustering within regions of known significance reduced the feature set to 210 residue pairs. Using these data, we trained a Random Forest multiclass classification model, optimized through hyperparameter tuning and 10-fold cross-validation, which achieved a test accuracy of 95.9%. Key residue pairs distinguishing each WNT system were then identified using permutation feature importance. This methodology not only highlights crucial contact pairs but also corroborates previously studied residues influencing enzyme activity, demonstrating the potential of ML in understanding complex protein interactions.
 <br><br>
 This repository provides tools for interacting with and processing molecular structures and data from molecular dynamic simulations. It will also include code and workflows for building and training a variety of robust machine learning models.
@@ -344,7 +344,7 @@ The `scripts/10_ovr/` directory, contains the following:
 ## 📨 Contact 
 ***  
 This project is a collaboration between researchers at IBM Research, Arizona State University, and University of Illinois Urbana-Champaign. We'd love to hear from you!
-To get in touch with us, please [create an issue](https://github.ibm.com/IBM-Research-AI/MDML-WntWLS/issues) or <a href="mailto:sara.capponi@ibm.com, sara.capponi@ibm.com">send us an email</a>.
+To get in touch with us, please [create an issue](https://github.com/CCCofficial/MDML-WntWls-Protein_Interactions/issues) or <a href="mailto:sara.capponi@ibm.com, sara.capponi@ibm.com">send us an email</a>.
 
 [//]: # (| <img src="https://media.github.ibm.com/user/430879/files/9e327004-2b50-4a84-b638-ac5c584fb33d" width=150> | <img src="https://media.github.ibm.com/user/430879/files/b05f557f-e590-47be-b52f-12eae38a8d23" width=150> | <img src="https://media.github.ibm.com/user/430879/files/5f1e5a7d-107d-4d05-b104-1013dcf18bc5" width=150> |)
 
