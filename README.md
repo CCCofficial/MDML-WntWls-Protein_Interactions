@@ -355,10 +355,41 @@ To get in touch with us, please [create an issue](https://github.com/CCCofficial
 <br>
 
 ***  
+## 📄 Preprint
+***  
+
+Our work is currently available as a preprint on bioRxiv:  
+[Interpretable Machine Learning Uncovers Structural Determinants of Wnt–Wls Binding Specificity from Extended Atomistic Simulations](https://www.biorxiv.org/content/10.1101/2025.08.18.670971v1)
+
+> ⚠️ **Disclaimer**: This manuscript has not yet been peer-reviewed.  
+> A formal, updated version is in preparation and under submission.
+
+---
+
+## 📑 Citation
+***  
+
+If you use this repository in your research, please cite:
+
+```bibtex
+@article{callahan2025interpretable,
+  author    = {Callahan, T. J. and Shi, J. and others},
+  title     = {Interpretable Machine Learning Uncovers Structural Determinants of Wnt–Wls Binding Specificity from Extended Atomistic Simulations},
+  journal   = {bioRxiv},
+  year      = {2025},
+  doi       = {10.1101/2025.08.18.670971},
+  url       = {https://www.biorxiv.org/content/10.1101/2025.08.18.670971v1},
+  note      = {Preprint, not peer-reviewed}
+}
+
+<br>
+
+
+***  
 ## ✨ Acknowledgements and Disclaimers
 *** 
 This material is based upon work supported by the National Science Foundation (NSF) under Grant `No.DBI-1548297` awarded to the [Center for Cellular Construction](https://centerforcellularconstruction.org/about/) at IBM Research.  
 Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation or IBM Research.
 
-<center><img src="https://media.github.ibm.com/user/430879/files/fb31b0d4-849a-4d06-8743-a3571bae867f" align="center" width=200>
-<img src="https://media.github.ibm.com/user/430879/files/a1e5f43d-9497-494c-bb2a-32d9c65bc589" align="center" width=85></center>
+[//]: # (<center><img src="https://media.github.ibm.com/user/430879/files/fb31b0d4-849a-4d06-8743-a3571bae867f" align="center" width=200>)
+[//]: # (<img src="https://media.github.ibm.com/user/430879/files/a1e5f43d-9497-494c-bb2a-32d9c65bc589" align="center" width=85></center>)
