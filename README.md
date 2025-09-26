@@ -361,8 +361,7 @@ To get in touch with us, please [create an issue](https://github.com/CCCofficial
 Our work is currently available as a preprint on bioRxiv:  
 [Interpretable Machine Learning Uncovers Structural Determinants of Wnt–Wls Binding Specificity from Extended Atomistic Simulations](https://www.biorxiv.org/content/10.1101/2025.08.18.670971v1)
 
-> ⚠️ **Disclaimer**: This manuscript has not yet been peer-reviewed.  
-> A formal version has been submitted to a peer-reviewed journal and is under consideration.
+> ⚠️ **Disclaimer**: A formal version has been submitted to a peer-reviewed journal and is under consideration.
 
 
 
@@ -382,6 +381,7 @@ If you use this repository in your research, please cite:
   url       = {https://www.biorxiv.org/content/10.1101/2025.08.18.670971v1},
   note      = {Preprint, not peer-reviewed}
 }
+
 ```
 <br>
 
