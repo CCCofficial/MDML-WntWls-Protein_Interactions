@@ -1,0 +1,39 @@
+* Parameters of Serine-Palmitoleate (SPL) modified input for CHARMM-GUI "Engineered Residue"
+*
+
+BONDS
+!!From par_all36_cgenff.prm
+CT2  OSL   360.000      1.4150 ! diethylether, CG321  OG301
+
+ANGLES
+!! From par_all36_lipid.prm: 
+CL   OSL  CT2    40.0     109.6     30.0   2.2651 ! methyl acetate CL   OSL  CTL2
+
+!!Serine Parameters: in par_all36_prot.prm, replaced OH1 with OSL (Updated )
+OSL  CT2  CT1    75.700   110.1000 ! ALLOW   ALI ALC ARO
+                ! MeOH, EMB, 10/10/89
+OSL  CT2  HA2    45.900   108.8900 ! ALLOW   ALI ALC ARO
+                ! MeOH, EMB, 10/10/89
+                
+DIHEDRALS
+!! From par_all36_cgenff.prm
+CL       OSL      CT2      CT1     0.570  1     0.00 ! 1,2 dimethoxyethane (DME), CG321  CG321  OG301  CG331 
+CL       OSL      CT2      CT1     0.290  2     0.00 ! 1,2 dimethoxyethane (DME), CG321  CG321  OG301  CG331 
+CL       OSL      CT2      CT1     0.430  3     0.00 ! 1,2 dimethoxyethane (DME), CG321  CG321  OG301  CG331 
+
+CT2      OSL      CL       CTL2    0.570  1     0.00 ! 1,2 dimethoxyethane (DME), CG321  CG321  OG301  CG331
+CT2      OSL      CL       CTL2    0.290  2     0.00 ! "
+CT2      OSL      CL       CTL2    0.430  3     0.00 ! "
+
+HA2      CT2      OSL      CL      0.284  3     0.00 ! from diethylether, HGA2  CG321  OG301  CG331
+
+CT2      OSL      CL       OBL     2.050  2     180.00 ! Lipid methyl acetate, par_all36_lipid.prm
+
+IMPROPER
+
+CL   X    X   CTL2    96.0000         0      0.0000 ! from, CC   X    X    CT2
+C    O    NH1 CTL2    96.0000         0      0.0000 ! from, CC   X    X    CT2 
+C    O    N   CTL2    96.0000         0      0.0000 ! from CC   X    X    CT2
+end
+
+return
