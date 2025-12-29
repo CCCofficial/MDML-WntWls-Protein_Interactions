@@ -55,7 +55,7 @@ scratch/*
 data/*
 scripts/00_sequence_align/wnt.fasta
 scripts/00_unwrap_trajectory/output
-scripts/00_map/output/*
+!scripts/00_map/output/*
 !scripts/00_map/output/.gitignore
 scripts/00_map/input/*
 !scripts/00_map/input/.gitignore
@@ -71,7 +71,7 @@ scripts/01_get_contact_matrix/output/*
 scripts/02_apply_threshhold/output/*
 !scripts/02_apply_threshhold/output/.gitignore
 
-scripts/03_finalize_dataset/output/*
+#scripts/03_finalize_dataset/output/*
 !scripts/03_finalize_dataset/output/.gitignore
 
 scripts/04_map/output/*
