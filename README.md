@@ -355,13 +355,15 @@ To get in touch with us, please [create an issue](https://github.com/CCCofficial
 <br>
 
 ***  
-## 📄 Preprint
+## 📄 Publication
 ***  
 
-Our work is currently available as a preprint on bioRxiv:  
-[Interpretable Machine Learning Uncovers Structural Determinants of Wnt–Wls Binding Specificity from Extended Atomistic Simulations](https://www.biorxiv.org/content/10.1101/2025.08.18.670971v1)
+This work has been published in *Nature Communications Chemistry*:
 
-> ⚠️ **Disclaimer**: A formal version has been submitted to a peer-reviewed journal and is under consideration.
+[Interpretable machine learning uncovers structural determinants of Wnt–Wntless binding specificity from atomistic simulations](https://doi.org/10.1038/s42004-026-02013-7)
+
+A preprint version is also available on bioRxiv:
+[https://doi.org/10.1101/2025.08.18.670971](https://doi.org/10.1101/2025.08.18.670971)
 
 
 
@@ -372,16 +374,14 @@ Our work is currently available as a preprint on bioRxiv:
 If you use this repository in your research, please cite:
 
 ```bibtex
-@article{callahan2025interpretable,
-  author    = {Callahan, T. J. and Shi, J. and others},
-  title     = {Interpretable Machine Learning Uncovers Structural Determinants of Wnt–Wls Binding Specificity from Extended Atomistic Simulations},
-  journal   = {bioRxiv},
-  year      = {2025},
-  doi       = {10.1101/2025.08.18.670971},
-  url       = {https://www.biorxiv.org/content/10.1101/2025.08.18.670971v1},
-  note      = {Preprint, not peer-reviewed}
+@article{callahan2026interpretable,
+  author  = {Callahan, Tiffany J. and Shi, Jie and Cheng, Kevin J. and Sauer, Michael A. and Pogorelov, Taras V. and Capponi, Sara},
+  title   = {Interpretable machine learning uncovers structural determinants of Wnt-Wntless binding specificity from atomistic simulations},
+  journal = {Communications Chemistry},
+  year    = {2026},
+  doi     = {10.1038/s42004-026-02013-7},
+  url     = {https://doi.org/10.1038/s42004-026-02013-7}
 }
-
 ```
 <br>
 
